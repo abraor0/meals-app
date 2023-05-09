@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import './widgets/app_scaffold.dart';
 import './categories_screen.dart';
 
 void main() {
@@ -15,7 +16,17 @@ class MyApp extends StatelessWidget {
       title: 'Meals App',
       home: Home(),
       theme: ThemeData(
+        fontFamily: 'Raleway',
         primarySwatch: Colors.orange,
+        primaryTextTheme: ThemeData.light().textTheme.copyWith(
+            titleMedium: const TextStyle(
+              color: Colors.white,
+              fontFamily: 'RobotoCondensed',
+            ),
+            titleSmall: const TextStyle(
+              fontFamily: 'RobotoCondensed',
+              fontSize: 22,
+            )),
       ),
     );
   }
@@ -26,39 +37,9 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('DeliMeals'),
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: null,
-          icon: Icon(
-            Icons.menu,
-          ),
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.food_bank),
-            label: 'All',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Favorites',
-          ),
-        ],
-      ),
-      body: CategoriesScreen(),
-      drawer: Drawer(
-        child: Column(
-          children: [
-            Row(
-              children: [],
-            ),
-          ],
-        ),
-      ),
+    return AppScaffold(
+      child: CategoriesScreen(),
+      title: 'DeliMeals',
     );
   }
 }
