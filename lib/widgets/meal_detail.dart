@@ -49,7 +49,7 @@ class MealDetail extends StatelessWidget {
           sectionListBuilder(ListView.builder(
             itemBuilder: (ctx, index) {
               return Card(
-                color: Theme.of(context).accentColor,
+                color: Theme.of(context).colorScheme.onSecondary,
                 child: Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 5),

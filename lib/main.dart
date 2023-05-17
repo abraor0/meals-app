@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:meals_app/tab_screen.dart';
 
-import './widgets/app_scaffold.dart';
-import './categories_screen.dart';
+import './tab_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       home: Home(),
       theme: ThemeData(
         fontFamily: 'Raleway',
-        primarySwatch: Colors.orange,
+        colorSchemeSeed: Colors.orange,
         primaryTextTheme: ThemeData.light().textTheme.copyWith(
             titleMedium: const TextStyle(
               color: Colors.white,
@@ -37,9 +37,6 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppScaffold(
-      child: CategoriesScreen(),
-      title: 'DeliMeals',
-    );
+    return TabScreen();
   }
 }
