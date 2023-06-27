@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import '../tab_screen.dart';
-import '../filters_screen.dart';
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({super.key});
@@ -15,7 +13,7 @@ class MainDrawer extends StatelessWidget {
       ),
       title: Text(
         title,
-        style: TextStyle(
+        style: const TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 20,
           fontFamily: 'RobotoCondensed',
@@ -45,18 +43,10 @@ class MainDrawer extends StatelessWidget {
                 color: Theme.of(context).primaryColor),
           ),
         ),
-        navTileBuilder(
-            context,
-            'Meals',
-            Icons.restaurant,
-            () => Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (_) => TabScreen()))),
-        navTileBuilder(
-            context,
-            'Filters',
-            Icons.settings,
-            () => Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (_) => FiltersScreen())))
+        navTileBuilder(context, 'Meals', Icons.restaurant,
+            () => Navigator.of(context).pushReplacementNamed('/')),
+        navTileBuilder(context, 'Filters', Icons.settings,
+            () => Navigator.of(context).pushReplacementNamed('/filters'))
       ]),
     );
   }

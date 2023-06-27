@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../models/IMeal.dart';
-import '../meal_detail_screen.dart';
 
 class Meal extends StatelessWidget {
   final IMeal meal;
@@ -31,8 +30,7 @@ class Meal extends StatelessWidget {
   }
 
   void selectMeal(BuildContext ctx) {
-    Navigator.of(ctx)
-        .push(MaterialPageRoute(builder: (_) => MealDetailScreen(meal)));
+    Navigator.of(ctx).pushNamed('/meal-detail', arguments: meal);
   }
 
   @override

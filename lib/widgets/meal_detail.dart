@@ -4,8 +4,11 @@ import '../models/IMeal.dart';
 
 class MealDetail extends StatelessWidget {
   final IMeal meal;
+  final Function toggleFavoriteMeal;
+  final Function isMealFavorited;
 
-  const MealDetail(this.meal, {super.key});
+  const MealDetail(this.meal, this.toggleFavoriteMeal, this.isMealFavorited,
+      {super.key});
 
   Widget sectionTitleBuilder(BuildContext ctx, String title) {
     return Container(

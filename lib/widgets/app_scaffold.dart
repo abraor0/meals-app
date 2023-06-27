@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 import './main_drawer.dart';
@@ -9,12 +7,16 @@ class AppScaffold extends StatelessWidget {
   final String title;
   final Widget? bottomNav;
   final bool drawer;
+  final List<Widget>? actions;
+  final FloatingActionButton? floatingActionButton;
 
-  AppScaffold({
+  const AppScaffold({
     required this.child,
     required this.title,
     this.bottomNav,
     this.drawer = false,
+    this.actions,
+    this.floatingActionButton,
     super.key,
   });
 
@@ -24,10 +26,12 @@ class AppScaffold extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
         centerTitle: true,
+        actions: actions,
       ),
       bottomNavigationBar: bottomNav,
       body: child,
-      drawer: drawer ? MainDrawer() : null,
+      drawer: drawer ? const MainDrawer() : null,
+      floatingActionButton: floatingActionButton,
     );
   }
 }

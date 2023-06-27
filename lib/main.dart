@@ -3,11 +3,10 @@ import 'package:meals_app/categories_screen.dart';
 import 'package:meals_app/category_meals_screen.dart';
 import 'package:meals_app/dummy_data.dart';
 import 'package:meals_app/favorites_screen.dart';
+import 'package:meals_app/filters_screen.dart';
+import 'package:meals_app/meal_detail_screen.dart';
 import 'package:meals_app/models/IMeal.dart';
 import 'package:meals_app/tab_screen.dart';
-import 'package:meals_app/widgets/meal_detail.dart';
-
-import './tab_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,8 +28,9 @@ class _MyAppState extends State<MyApp> {
   };
 
   List<IMeal> _availableMeals = DUMMY_MEALS;
+  List<IMeal> _favoriteMeals = [];
 
-  void setFilters(Map<String, bool> filterData) {
+  void _setFilters(Map<String, bool> filterData) {
     setState(() {
       _filters = filterData;
     });
@@ -53,6 +53,23 @@ class _MyAppState extends State<MyApp> {
     }).toList();
   }
 
+  void _toggleFavoriteMeal(String id) {
+    final doesExist = _favoriteMeals.indexWhere((element) => element.id == id);
+    if (doesExist >= 0) {
+      setState(() {
+        _favoriteMeals.removeAt(doesExist);
+      });
+    } else {
+      _favoriteMeals.add(DUMMY_MEALS.firstWhere((element) => element.id == id));
+    }
+  }
+
+  bool _isMealFavorited(String id) {
+    return _favoriteMeals.indexWhere((element) => element.id == id) >= 0
+        ? true
+        : false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -71,12 +88,13 @@ class _MyAppState extends State<MyApp> {
             )),
       ),
       routes: {
-        '/': (context) => TabScreen(),
-        '/categories': (context) => CategoriesScreen(),
-        '/category': (context) =>
-            CategoryMealsScreen(categoryId: categoryId, title: title),
-        '/favorites': (context) => FavoritesScreen(),
-        '/meal-detail': (context) => MealDetail(),
+        '/': (context) => TabScreen(_favoriteMeals),
+        '/categories': (context) => const CategoriesScreen(),
+        '/category': (context) => CategoryMealsScreen(_availableMeals),
+        '/favorites': (context) => FavoritesScreen(_favoriteMeals),
+        '/meal-detail': (context) =>
+            MealDetailScreen(_toggleFavoriteMeal, _isMealFavorited),
+        '/filters': (context) => FiltersScreen(_filters, _setFilters)
       },
     );
   }

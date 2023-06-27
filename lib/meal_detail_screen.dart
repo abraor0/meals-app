@@ -3,18 +3,26 @@ import 'package:flutter/material.dart';
 import './models/IMeal.dart';
 import './widgets/app_scaffold.dart';
 import './widgets/meal_detail.dart';
-import './dummy_data.dart';
 
 class MealDetailScreen extends StatelessWidget {
-  final IMeal meal;
+  final Function toggleFavoriteMeal;
+  final Function isMealFavorited;
 
-  const MealDetailScreen(this.meal, {super.key});
+  const MealDetailScreen(this.toggleFavoriteMeal, this.isMealFavorited,
+      {super.key});
 
   @override
   Widget build(BuildContext context) {
+    final meal = ModalRoute.of(context)!.settings.arguments as IMeal;
+
     return AppScaffold(
-      child: MealDetail(meal),
       title: meal.title,
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+            isMealFavorited(meal.id) ? Icons.favorite : Icons.favorite_border),
+        onPressed: () => toggleFavoriteMeal(meal.id),
+      ),
+      child: MealDetail(meal, toggleFavoriteMeal, isMealFavorited),
     );
   }
 }
